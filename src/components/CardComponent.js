@@ -1,5 +1,7 @@
 import * as React from 'react';
 import { Card, CardActions, CardContent, Button, Typography } from '@mui/material';
+import DoneAllRoundedIcon from '@mui/icons-material/DoneAllRounded';
+import { useDispatch } from 'react-redux'
 import styled from "@emotion/styled";
 
 const DoneWrapper = styled.div`
@@ -8,6 +10,11 @@ const DoneWrapper = styled.div`
 
 
 const CardComponent = (props) => {
+    const dispatch = useDispatch();
+    const handleDone = (e) => {
+        console.log(e.target.dataset.identifier);
+        dispatch({ type: 'TOGGLE_TODO', payload: { id: e.target.dataset.identifier } })
+    }
     return (
         <Card sx={{ minWidth: 275, maxWidth: 275 }}>
           <CardContent>            
@@ -22,7 +29,10 @@ const CardComponent = (props) => {
           </CardContent>
           <DoneWrapper>
             <CardActions>
-                    <Button variant="outlined" size="small">Done</Button>
+                { !props.isCompleted ?
+                    <Button data-identifier={props.identifier} variant="outlined" size="small" onClick={handleDone}>Done</Button> : 
+                    <DoneAllRoundedIcon style={{ color: "green", padding: "3px" }} />
+                }
             </CardActions>
           </DoneWrapper>
         </Card>

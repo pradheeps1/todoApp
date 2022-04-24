@@ -19,13 +19,14 @@ const TodoList = () => {
           <List>
             <ListItem>
               {/* <ListItemText primary={todos.byIds[key].title} /> */}
-              <CardComponent title={todos.byIds[key].title} description={todos.byIds[key].description}/>
+              <CardComponent title={todos.byIds[key].title} description={todos.byIds[key].description} identifier={key} 
+                isCompleted={todos.byIds[key].completed}/>
             </ListItem>
           </List>)
       })}
     </Box> : 
       <div>
-        <h1> Good day... </h1>
+        <h1>Good day... </h1>
         <h1>No active todos...</h1>
       </div>
     
