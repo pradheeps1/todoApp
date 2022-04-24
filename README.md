@@ -1,6 +1,6 @@
 # Simple Todo Application
 
-TBA - Deploy to gitpage and document the domain
+Deployed link - https://pradheeps1.github.io/todoApp/
 
 
 Local setup
