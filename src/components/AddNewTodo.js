@@ -37,6 +37,8 @@ const AddNewTodo = () => {
         if(!!title) {
             handleClose();
             dispatch({ type: 'ADD_TODO', payload: { id: Date.now(), title, description } })
+            setTitle("");
+            setDescription("");
         }
       }
 
