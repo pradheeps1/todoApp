@@ -9,14 +9,16 @@ const DoneWrapper = styled.div`
 
 const CardComponent = (props) => {
     return (
-        <Card sx={{ minWidth: 275 }}>
-          <CardContent>
-            <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+        <Card sx={{ minWidth: 275, maxWidth: 275 }}>
+          <CardContent>            
+            <Typography sx={{ fontSize: 14, textOverflow: 'ellipsis', whiteSpace: 'nowrap', overflow: 'hidden' }} color="text.secondary" gutterBottom>
                 {props.title}
             </Typography>
-            <Typography variant="body2">
+        
+            <Typography variant="body2" sx={{ textOverflow: 'ellipsis', whiteSpace: 'nowrap', overflow: 'hidden', marginTop: '10px' }}>
                 {props.description}
             </Typography>
+
           </CardContent>
           <DoneWrapper>
             <CardActions>

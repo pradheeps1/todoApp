@@ -17,14 +17,13 @@ const TodoList = () => {
       { Object.keys(todos.byIds).map((key, index) => {
         return (
           <List>
-            <ListItem key={index}>
+            <ListItem>
               {/* <ListItemText primary={todos.byIds[key].title} /> */}
               <CardComponent title={todos.byIds[key].title} description={todos.byIds[key].description}/>
             </ListItem>
           </List>)
       })}
     </Box> : 
-    
       <div>
         <h1> Good day... </h1>
         <h1>No active todos...</h1>

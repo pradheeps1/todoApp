@@ -34,8 +34,12 @@ const AddNewTodo = () => {
 
     const dispatch = useDispatch();
     const handleSubmit = (e) => {
-        handleClose();
-        dispatch({ type: 'ADD_TODO', payload: { id: Date.now(), title, description } })
+        if(!!title) {
+            handleClose();
+            dispatch({ type: 'ADD_TODO', payload: { id: Date.now(), title, description } })
+        } else {
+            
+        }
       }
 
     return (
