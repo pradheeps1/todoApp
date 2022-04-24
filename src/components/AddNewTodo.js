@@ -74,7 +74,7 @@ const AddNewTodo = () => {
                         />
                     </FormControl>
                     <FooterWrapper>
-                        <Button variant="contained" onClick={handleClose}>CANCEL</Button>  
+                        <Button variant="contained" onClick={handleClose} style={{ marginRight: "15px" }}>CANCEL</Button>
                         <Button variant="contained" onClick={handleSubmit}>SAVE</Button>  
                     </FooterWrapper>
                     
