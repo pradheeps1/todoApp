@@ -1,6 +1,10 @@
 import { Box, List, ListItem, ListItemText } from '@mui/material';
-import React from 'react'
-import { useSelector } from 'react-redux'
+import React from 'react';
+import { useSelector } from 'react-redux';
+import styled from "@emotion/styled";
+import CardComponent from './CardComponent';
+
+
 
 const TodoList = () => {
 
@@ -8,16 +12,24 @@ const TodoList = () => {
 
   console.log(todos)
   return (
+    todos.allIds.length > 0 ?
     <Box>
       { Object.keys(todos.byIds).map((key, index) => {
         return (
           <List>
-            <ListItem>
-              <ListItemText primary={todos.byIds[key].title} />
+            <ListItem key={index}>
+              {/* <ListItemText primary={todos.byIds[key].title} /> */}
+              <CardComponent title={todos.byIds[key].title} description={todos.byIds[key].description}/>
             </ListItem>
           </List>)
       })}
-    </Box>
+    </Box> : 
+    
+      <div>
+        <h1> Good day... </h1>
+        <h1>No active todos...</h1>
+      </div>
+    
   )
 }
 

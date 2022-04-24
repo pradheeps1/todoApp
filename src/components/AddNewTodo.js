@@ -62,7 +62,6 @@ const AddNewTodo = () => {
                     
                     <FormControl fullWidth sx={{ m: 1 }} variant="standard">
                         <TextField
-                            required
                             id="standard-multiline-static"
                             label="Description"
                             multiline
