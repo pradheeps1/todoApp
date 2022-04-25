@@ -21,21 +21,21 @@ const TodoList = (props) => {
     return Object.keys(todoById).map((key, index) => {
       if (filter === VISIBILITY_FILTERS.COMPLETED && todoById[key].isComplete) {
         return (
-          <ListItem key={key}>
+          <ListItem key={key} style={{width: 'auto'}}>
             <CardComponent title={todoById[key].title} description={todoById[key].description} identifier={key}
               isCompleted={todoById[key].isComplete} onClick={() => handleCardClick(todoById[key].title, todoById[key].description, todoById[key].isComplete, key )} />
           </ListItem>
         )
       } else if (filter === VISIBILITY_FILTERS.INCOMPLETE && !todoById[key].isComplete) {
         return (
-          <ListItem key={key}>
+          <ListItem key={key} style={{width: 'auto'}}>
             <CardComponent title={todoById[key].title} description={todoById[key].description} identifier={key}
               isCompleted={todoById[key].isComplete} onClick={() => handleCardClick(todoById[key].title, todoById[key].description, todoById[key].isComplete, key)} />
           </ListItem>
         )
       } else if (filter === VISIBILITY_FILTERS.ALL) {
         return (
-          <ListItem key={key}>
+          <ListItem key={key} style={{width: 'auto'}}>
             <CardComponent title={todoById[key].title} description={todoById[key].description} identifier={key}
               isCompleted={todoById[key].isComplete} onClick={() => handleCardClick(todoById[key].title, todoById[key].description, todoById[key].isComplete, key)} />
           </ListItem>
@@ -49,7 +49,7 @@ const TodoList = (props) => {
   return (
     todos.allIds.length > 0 ?
       <Box>
-        <List>
+        <List style={{display: 'flex', flexWrap: 'wrap'}}>
           {listItems()}
         </List>
       </Box> : 
