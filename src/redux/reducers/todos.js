@@ -1,5 +1,5 @@
 /* eslint-disable import/no-anonymous-default-export */
-import { ADD_TODO, TOGGLE_TODO, EDIT_TODO, SET_TODO } from "../actionTypes";
+import { ADD_TODO, TOGGLE_TODO, EDIT_TODO, SET_TODO, DELETE_TODO } from "../actionTypes";
 
 const initialState = {
   allIds: [],
@@ -11,7 +11,7 @@ export default function(state = initialState, action) {
     case SET_TODO: {
       const {todos} = action.payload;
       return {
-        allIds: Object.keys(todos) || [],
+        allIds: todos ? Object.keys(todos) || [] : [],
         byIds: todos
       }
     }
@@ -56,6 +56,17 @@ export default function(state = initialState, action) {
             isComplete: completed
           }
         }
+      }
+    }
+    case DELETE_TODO: {
+      const copyStateByIds = Object.assign({}, state.byIds)
+      delete copyStateByIds[action.payload.id]
+      const finalStateByIds = copyStateByIds;
+
+      return {
+        ...state,
+        allIds: state.allIds.filter(item => item !== action.payload.id),
+        byIds: copyStateByIds
       }
     }
     default:

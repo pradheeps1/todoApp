@@ -26,9 +26,6 @@ const VisibilityFilters = () => {
               <Tab key={index} label={filter} {...a11yProps(index)} onClick={(e) => {handleFilterChange(filter)}} />
             )
           })}
-          {/* // <Tab label="Item One" {...a11yProps(0)} /> */}
-          {/* // <Tab label="Item Two" {...a11yProps(1)} /> */}
-          {/* // <Tab label="Item Three" {...a11yProps(2)} /> */}
         </Tabs>
       </Box>
     </Box>

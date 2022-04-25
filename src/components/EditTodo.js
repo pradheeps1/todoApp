@@ -57,6 +57,24 @@ const EditTodo = (props) => {
         return content;
     }
 
+    const handleDelete = async (e) => {
+        await deleteTodo(cardId);
+        onClose();
+        dispatch({ type: 'DELETE_TODO', payload: { id: cardId } })
+    }
+
+    const deleteTodo = async (id) => {
+        let rawResp = await fetch(`https://todos-prad-default-rtdb.asia-southeast1.firebasedatabase.app/todoItems/${id}.json`, {
+            method: 'DELETE',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        });
+        const content = await rawResp.json();
+        return content;
+    }
+
     return (
         <>
             <Modal
@@ -89,6 +107,7 @@ const EditTodo = (props) => {
                         />
                     </FormControl>
                     <FooterWrapper>
+                        <Button variant="contained" color="secondary" onClick={handleDelete} style={{ marginRight: "15px" }}>DELETE</Button>
                         <Button variant="contained" onClick={onClose} style={{ marginRight: "15px" }}>CANCEL</Button>
                         <Button variant="contained" onClick={handleSubmit}>SAVE</Button>  
                     </FooterWrapper>
