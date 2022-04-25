@@ -84,7 +84,6 @@ const AddNewTodo = (props) => {
                             id="standard-multiline-static"
                             label="Description"
                             multiline
-                            rows={1}
                             variant="standard"
                             value={description}
                             onChange={(e) => setDescription(e.target.value)}
