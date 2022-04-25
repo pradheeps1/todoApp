@@ -49,7 +49,7 @@ const CardComponent = (props) => {
           </CardContent>
           <DoneWrapper>
             <CardActions>
-                { !props.isCompleted ?
+                { !props.isComplete ?
                     <Button data-identifier={props.identifier} data-title={props.title} data-description={props.description} variant="outlined" size="small" onClick={handleDone}>Done</Button> : 
                     <DoneAllRoundedIcon style={{ color: "green", padding: "3px" }} />
                 }

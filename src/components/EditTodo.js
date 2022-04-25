@@ -35,10 +35,8 @@ const EditTodo = (props) => {
     const handleSubmit = async (e) => {
         if(!!title) {
             const respContent = await editTodo(cardId, title, description, cardCompleted);
-            dispatch({ type: 'EDIT_TODO', payload: { id: respContent.name, title, description, completed: cardCompleted } })
+            dispatch({ type: 'EDIT_TODO', payload: { id: cardId, title, description, completed: respContent.isComplete } })
             onClose();
-            // setTitle("");
-            // setDescription("");
         }
       }
 

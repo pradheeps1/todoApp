@@ -15,17 +15,17 @@ export default function TodoApp() {
 
   const [editOpen, setEditOpen] = React.useState(false);
   const handleEditOpen = () => setEditOpen(true);
-  const handleEditClose = () => setEditOpen(false);
+  const handleEditClose = () => {
+    setEditOpen(false);
+    setCard(null);
+  }
 
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const handleOpenOnCardClick = (title, desc, completed, key) => {
-    setCard({cardTitle: title, cardDesc: desc, cardCompleted: completed, cardId: key});
+  const handleOpenOnCardClick = (title, description, completed, key) => {
+    setCard({cardTitle: title, cardDesc: description, cardCompleted: completed, cardId: key});
     handleEditOpen();
-    //open new modal, pass it all the state
-    // on save click, run that action EDIT_TODO
-    
   }
 
   const [loading, setLoading] = React.useState(false);

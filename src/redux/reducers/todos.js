@@ -44,7 +44,7 @@ export default function(state = initialState, action) {
       };
     }
     case EDIT_TODO: {
-      const { id, title, description, isComplete } = action.payload;
+      const { id, title, description, completed } = action.payload;
       return {
         ...state,
         allIds: [...state.allIds, id],
@@ -53,7 +53,7 @@ export default function(state = initialState, action) {
           [id]: {
             title,
             description,
-            isComplete
+            isComplete: completed
           }
         }
       }
