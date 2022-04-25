@@ -3,18 +3,23 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import styled from "@emotion/styled";
 import CardComponent from './CardComponent';
-
+import {VISIBILITY_FILTERS} from '../constants';
 
 
 const TodoList = () => {
 
   const todos = useSelector((state) => state.rootReducer.todos);
+  const filter = useSelector((state) => state.rootReducer.visibilityFilter);
+  console.log(filter);
 
-  console.log(todos)
+  console.log(todos);
   return (
     todos.allIds.length > 0 ?
     <Box>
       { Object.keys(todos.byIds).map((key, index) => {
+        if(filter === VISIBILITY_FILTERS.COMPLETED) {
+          
+        }
         return (
           <List>
             <ListItem>

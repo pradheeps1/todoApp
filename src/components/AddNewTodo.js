@@ -11,12 +11,12 @@ const styleModel = {
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: 400,
+    width: '375px',
     bgcolor: 'background.paper',
     border: '2px solid #fff',
     boxShadow: 24,
     borderRadius: '5px',
-    p: 4,
+    padding: '32px',
   };
 
 const FooterWrapper = styled.div`
@@ -69,7 +69,6 @@ const AddNewTodo = () => {
                             id="standard-multiline-static"
                             label="Description"
                             multiline
-                            rows={1}
                             variant="standard"
                             value={description}
                             onChange={(e) => setDescription(e.target.value)}
@@ -79,7 +78,6 @@ const AddNewTodo = () => {
                         <Button variant="contained" onClick={handleClose} style={{ marginRight: "15px" }}>CANCEL</Button>
                         <Button variant="contained" onClick={handleSubmit}>SAVE</Button>  
                     </FooterWrapper>
-                    
                 </Box>
             </Modal>
         </>
