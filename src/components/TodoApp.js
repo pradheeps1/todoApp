@@ -4,9 +4,12 @@ import FABComponent from "./FABComponent";
 import AddNewTodo from "./AddNewTodo";
 import EditTodo from "./EditTodo";
 import VisibilityFilters from "./VisibilityFilters";
+import { useDispatch } from "react-redux";
 
 export default function TodoApp() {
   
+  const dispatch = useDispatch();
+
   const [open, setOpen] = React.useState(false);
   const [card, setCard] = React.useState(null);
 
@@ -18,7 +21,6 @@ export default function TodoApp() {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const handleOpenOnCardClick = (title, desc, completed, key) => {
-    console.log(title, desc, completed, key);
     setCard({cardTitle: title, cardDesc: desc, cardCompleted: completed, cardId: key});
     handleEditOpen();
     //open new modal, pass it all the state
@@ -26,16 +28,35 @@ export default function TodoApp() {
     
   }
 
+  const [loading, setLoading] = React.useState(false);
+
+  React.useEffect(() => {
+    setLoading(true);
+
+    async function fetchTodoData() {
+      let resp = await fetch('https://todos-prad-default-rtdb.asia-southeast1.firebasedatabase.app/todoItems.json');
+      resp = await resp.json();
+      dispatch({ type: 'SET_TODO', payload: { todos: resp } });
+      setLoading(false);
+    }
+
+    fetchTodoData();
+
+  }, [])
+  
+
   return (
     <div className="todo-app">
       <h1>Todo List</h1>
-      <VisibilityFilters />
-      <TodoList onCardClick={handleOpenOnCardClick} />
-      <FABComponent onClick={handleOpen}  />
-      <AddNewTodo onClose={handleClose} open={open}/>
-      { card && 
-        <EditTodo open={editOpen} onClose={handleEditClose} card={card}/>
-      }
+      {loading ? "LOADING....." : <>
+        <VisibilityFilters />
+        <TodoList onCardClick={handleOpenOnCardClick} />
+        <FABComponent onClick={handleOpen}  />
+        <AddNewTodo onClose={handleClose} open={open}/>
+        { card && 
+          <EditTodo open={editOpen} onClose={handleEditClose} card={card}/>
+        }
+      </>}
     </div>
   );
 }

@@ -31,14 +31,32 @@ const AddNewTodo = (props) => {
     const [description, setDescription] = React.useState('');
 
     const dispatch = useDispatch();
-    const handleSubmit = (e) => {
-        if(!!title) {
-            dispatch({ type: 'ADD_TODO', payload: { id: Date.now(), title, description } })
+    const handleSubmit = async (e) => {
+        if (!!title) {
+            const respContent = await addTodo(title, description);
+            dispatch({ type: 'ADD_TODO', payload: { id: respContent.name, title, description } })
             onClose();
             setTitle("");
             setDescription("");
         }
-      }
+    }
+    
+    const addTodo = async (title, description) => {
+        const rawResp = await fetch('https://todos-prad-default-rtdb.asia-southeast1.firebasedatabase.app/todoItems.json', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                "description": description,
+                "isComplete": false,
+                "title": title
+            })
+        });
+        const content = await rawResp.json();
+        return content;
+    }
 
     return (
         <>

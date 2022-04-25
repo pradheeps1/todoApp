@@ -1,6 +1,6 @@
 # Simple Todo Application
 
-Deployed link - https://pradheeps1.github.io/todoApp/
+Try out the app - https://pradheeps1.github.io/todoApp/
 
 
 Local setup

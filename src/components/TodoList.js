@@ -14,31 +14,30 @@ const TodoList = (props) => {
   const todoById = todos.byIds;
 
   const handleCardClick = (title, description, completed, key) => {
-     console.log("Called");
      props.onCardClick(title, description, completed, key);
   }
 
   const listItems = () => {
     return Object.keys(todoById).map((key, index) => {
-      if (filter === VISIBILITY_FILTERS.COMPLETED && todoById[key].completed) {
+      if (filter === VISIBILITY_FILTERS.COMPLETED && todoById[key].isComplete) {
         return (
-          <ListItem>
+          <ListItem key={key}>
             <CardComponent title={todoById[key].title} description={todoById[key].description} identifier={key}
-              isCompleted={todoById[key].completed} onClick={() => handleCardClick(todoById[key].title, todoById[key].description, todoById[key].completed, key )} />
+              isCompleted={todoById[key].isComplete} onClick={() => handleCardClick(todoById[key].title, todoById[key].description, todoById[key].isComplete, key )} />
           </ListItem>
         )
-      } else if (filter === VISIBILITY_FILTERS.INCOMPLETE && !todoById[key].completed) {
+      } else if (filter === VISIBILITY_FILTERS.INCOMPLETE && !todoById[key].isComplete) {
         return (
-          <ListItem>
+          <ListItem key={key}>
             <CardComponent title={todoById[key].title} description={todoById[key].description} identifier={key}
-              isCompleted={todoById[key].completed} onClick={() => handleCardClick(todoById[key].title, todoById[key].description, todoById[key].completed, key)} />
+              isCompleted={todoById[key].isComplete} onClick={() => handleCardClick(todoById[key].title, todoById[key].description, todoById[key].isComplete, key)} />
           </ListItem>
         )
       } else if (filter === VISIBILITY_FILTERS.ALL) {
         return (
-          <ListItem>
+          <ListItem key={key}>
             <CardComponent title={todoById[key].title} description={todoById[key].description} identifier={key}
-              isCompleted={todoById[key].completed} onClick={() => handleCardClick(todoById[key].title, todoById[key].description, todoById[key].completed, key)} />
+              isCompleted={todoById[key].isComplete} onClick={() => handleCardClick(todoById[key].title, todoById[key].description, todoById[key].isComplete, key)} />
           </ListItem>
         )
       } else {

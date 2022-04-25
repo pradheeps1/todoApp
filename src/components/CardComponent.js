@@ -11,14 +11,33 @@ const DoneWrapper = styled.div`
 
 const CardComponent = (props) => {
     const dispatch = useDispatch();
-    const handleDone = (e) => {
+    
+    const handleDone = async (e) => {
         e.stopPropagation();
-        console.log(e.target.dataset.identifier);
-        dispatch({ type: 'TOGGLE_TODO', payload: { id: e.target.dataset.identifier } })
+        await markTodoDone(e.target.dataset.identifier, e.target.dataset.title, e.target.dataset.description, true);
+        dispatch({ type: 'TOGGLE_TODO', payload: { id: e.target.dataset.identifier } });
     }
+
+    const markTodoDone = async (id, title, description, completed) => {
+      let rawResp = await fetch(`https://todos-prad-default-rtdb.asia-southeast1.firebasedatabase.app/todoItems/${id}.json`, {
+          method: 'PUT',
+          headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            "description": description,
+            "isComplete": completed,
+            "title": title
+          })
+      });
+      const content = await rawResp.json();
+      return content;
+  }
+
     return (
-      <Card sx={{ minWidth: 275, maxWidth: 275 }} onClick={() => { console.log("here");props.onClick()}}>
-          <CardContent>            
+      <Card sx={{ minWidth: 275, maxWidth: 275 }} onClick={() => { props.onClick()}}>
+          <CardContent>
             <Typography sx={{ fontSize: 14, textOverflow: 'ellipsis', whiteSpace: 'nowrap', overflow: 'hidden' }} color="text.secondary" gutterBottom>
                 {props.title}
             </Typography>
@@ -31,7 +50,7 @@ const CardComponent = (props) => {
           <DoneWrapper>
             <CardActions>
                 { !props.isCompleted ?
-                    <Button data-identifier={props.identifier} variant="outlined" size="small" onClick={handleDone}>Done</Button> : 
+                    <Button data-identifier={props.identifier} data-title={props.title} data-description={props.description} variant="outlined" size="small" onClick={handleDone}>Done</Button> : 
                     <DoneAllRoundedIcon style={{ color: "green", padding: "3px" }} />
                 }
             </CardActions>

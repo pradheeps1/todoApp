@@ -32,14 +32,32 @@ const EditTodo = (props) => {
     const [description, setDescription] = React.useState(cardDesc);
 
     const dispatch = useDispatch();
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         if(!!title) {
-            dispatch({ type: 'EDIT_TODO', payload: { id: cardId, title, description, completed: cardCompleted } })
+            const respContent = await editTodo(cardId, title, description, cardCompleted);
+            dispatch({ type: 'EDIT_TODO', payload: { id: respContent.name, title, description, completed: cardCompleted } })
             onClose();
             // setTitle("");
             // setDescription("");
         }
       }
+
+    const editTodo = async (id, title, description, completed) => {
+        let rawResp = await fetch(`https://todos-prad-default-rtdb.asia-southeast1.firebasedatabase.app/todoItems/${id}.json`, {
+            method: 'PUT',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                "description": description,
+                "isComplete": completed,
+                "title": title
+            })
+        });
+        const content = await rawResp.json();
+        return content;
+    }
 
     return (
         <>
@@ -67,7 +85,6 @@ const EditTodo = (props) => {
                             id="standard-multiline-static"
                             label="Description"
                             multiline
-                            rows={1}
                             variant="standard"
                             value={description}
                             onChange={(e) => setDescription(e.target.value)}
