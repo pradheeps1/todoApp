@@ -3,8 +3,8 @@
 Try out the app - https://pradheeps1.github.io/todoApp/
 
 
-Local setup
-1) This project was setup using react CRA
+## Local setup
+This project was setup using react CRA
 
 ## Available Scripts
 
@@ -27,3 +27,7 @@ Builds the app for production to the `build` folder.\
 It correctly bundles React in production mode and optimizes the build for the best performance.
 
 The build is minified and the filenames include the hashes.# todoApp
+
+
+## Backend
+Backend is deployed on Google firebase using realtime database. All CRUD operations are supported on backend.
