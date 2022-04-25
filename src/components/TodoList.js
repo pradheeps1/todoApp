@@ -1,35 +1,59 @@
 import { Box, List, ListItem } from '@mui/material';
 import React from 'react';
 import { useSelector } from 'react-redux';
-import styled from "@emotion/styled";
 import CardComponent from './CardComponent';
-import {VISIBILITY_FILTERS} from '../constants';
+
+import { VISIBILITY_FILTERS } from "../constants";
 
 
-const TodoList = () => {
+
+const TodoList = (props) => {
 
   const todos = useSelector((state) => state.rootReducer.todos);
   const filter = useSelector((state) => state.rootReducer.visibilityFilter);
-  console.log(filter);
+  const todoById = todos.byIds;
 
-  console.log(todos);
+  const handleCardClick = (title, description, completed, key) => {
+     console.log("Called");
+     props.onCardClick(title, description, completed, key);
+  }
+
+  const listItems = () => {
+    return Object.keys(todoById).map((key, index) => {
+      if (filter === VISIBILITY_FILTERS.COMPLETED && todoById[key].completed) {
+        return (
+          <ListItem>
+            <CardComponent title={todoById[key].title} description={todoById[key].description} identifier={key}
+              isCompleted={todoById[key].completed} onClick={() => handleCardClick(todoById[key].title, todoById[key].description, todoById[key].completed, key )} />
+          </ListItem>
+        )
+      } else if (filter === VISIBILITY_FILTERS.INCOMPLETE && !todoById[key].completed) {
+        return (
+          <ListItem>
+            <CardComponent title={todoById[key].title} description={todoById[key].description} identifier={key}
+              isCompleted={todoById[key].completed} onClick={() => handleCardClick(todoById[key].title, todoById[key].description, todoById[key].completed, key)} />
+          </ListItem>
+        )
+      } else if (filter === VISIBILITY_FILTERS.ALL) {
+        return (
+          <ListItem>
+            <CardComponent title={todoById[key].title} description={todoById[key].description} identifier={key}
+              isCompleted={todoById[key].completed} onClick={() => handleCardClick(todoById[key].title, todoById[key].description, todoById[key].completed, key)} />
+          </ListItem>
+        )
+      } else {
+        return null;
+      }
+    })
+  }
+
   return (
     todos.allIds.length > 0 ?
-    <Box>
-      { Object.keys(todos.byIds).map((key, index) => {
-        if(filter === VISIBILITY_FILTERS.COMPLETED) {
-          
-        }
-        return (
-          <List>
-            <ListItem>
-              {/* <ListItemText primary={todos.byIds[key].title} /> */}
-              <CardComponent title={todos.byIds[key].title} description={todos.byIds[key].description} identifier={key} 
-                isCompleted={todos.byIds[key].completed}/>
-            </ListItem>
-          </List>)
-      })}
-    </Box> : 
+      <Box>
+        <List>
+          {listItems()}
+        </List>
+      </Box> : 
       <div>
         <h1>Good day... </h1>
         <h1>No active todos...</h1>

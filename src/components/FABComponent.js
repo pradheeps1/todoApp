@@ -10,11 +10,11 @@ const WrapperDiv = styled.div`
     position: fixed;
 `;
 
-const FABComponent = () => {
+const FABComponent = (props) => {
 
     return (
         <WrapperDiv>
-            <Fab color="primary" aria-label="add">
+            <Fab color="primary" aria-label="add" onClick={props.onClick}>
                 <AddIcon />
             </Fab>
         </WrapperDiv>

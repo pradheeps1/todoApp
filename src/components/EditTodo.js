@@ -24,19 +24,20 @@ const FooterWrapper = styled.div`
     float: right;
 `;
 
-const AddNewTodo = (props) => {
+const EditTodo = (props) => {
     const { open, onClose } = props;
+    const {cardTitle, cardDesc, cardCompleted, cardId} = props.card;
 
-    const [title, setTitle] = React.useState('');
-    const [description, setDescription] = React.useState('');
+    const [title, setTitle] = React.useState(cardTitle);
+    const [description, setDescription] = React.useState(cardDesc);
 
     const dispatch = useDispatch();
     const handleSubmit = (e) => {
         if(!!title) {
-            dispatch({ type: 'ADD_TODO', payload: { id: Date.now(), title, description } })
+            dispatch({ type: 'EDIT_TODO', payload: { id: cardId, title, description, completed: cardCompleted } })
             onClose();
-            setTitle("");
-            setDescription("");
+            // setTitle("");
+            // setDescription("");
         }
       }
 
@@ -83,4 +84,4 @@ const AddNewTodo = (props) => {
     )
 }
 
-export default AddNewTodo
+export default EditTodo

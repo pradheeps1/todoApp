@@ -1,5 +1,5 @@
 /* eslint-disable import/no-anonymous-default-export */
-import { ADD_TODO, TOGGLE_TODO } from "../actionTypes";
+import { ADD_TODO, TOGGLE_TODO, EDIT_TODO } from "../actionTypes";
 
 const initialState = {
   allIds: [],
@@ -35,6 +35,21 @@ export default function(state = initialState, action) {
           }
         }
       };
+    }
+    case EDIT_TODO: {
+      const { id, title, description, completed } = action.payload;
+      return {
+        ...state,
+        allIds: [...state.allIds, id],
+        byIds: {
+          ...state.byIds,
+          [id]: {
+            title,
+            description,
+            completed
+          }
+        }
+      }
     }
     default:
       return state;

@@ -12,11 +12,12 @@ const DoneWrapper = styled.div`
 const CardComponent = (props) => {
     const dispatch = useDispatch();
     const handleDone = (e) => {
+        e.stopPropagation();
         console.log(e.target.dataset.identifier);
         dispatch({ type: 'TOGGLE_TODO', payload: { id: e.target.dataset.identifier } })
     }
     return (
-        <Card sx={{ minWidth: 275, maxWidth: 275 }}>
+      <Card sx={{ minWidth: 275, maxWidth: 275 }} onClick={() => { console.log("here");props.onClick()}}>
           <CardContent>            
             <Typography sx={{ fontSize: 14, textOverflow: 'ellipsis', whiteSpace: 'nowrap', overflow: 'hidden' }} color="text.secondary" gutterBottom>
                 {props.title}
